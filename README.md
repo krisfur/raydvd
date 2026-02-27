@@ -1,6 +1,6 @@
 # raydvd
 
-`raydvd` is a tiny desktop DVD logo overlay for Linux, written in Rust with raylib.
+`raydvd` is a tiny desktop DVD logo overlay for Linux and MacOS, written in Rust with raylib.
 
 ![screenshot](./screenshot.png)
 
@@ -32,7 +32,13 @@ sudo apt-get install -y cmake build-essential \
   libxext-dev libxinerama-dev libxi-dev libxrandr-dev
 ```
 
-From crates.io (after publish):
+MacOS:
+
+```bash
+brew install cmake
+```
+
+From crates.io:
 
 ```bash
 cargo install raydvd
@@ -55,7 +61,7 @@ raydvd [OPTIONS]
 Options:
 
 - `-s, --speed <FLOAT>`: speed multiplier, must be `> 0` (default: `1.0`)
-- `-c, --corner <FLOAT>`: corner-hit margin in pixels, must be `>= 0` (default: `20`)
+- `-c, --corner <INT>`: corner-hit margin in pixels, must be `>= 0` (default: `5`)
 - `-t, --trace`: draw the traveled path of the logo center
 
 Examples:

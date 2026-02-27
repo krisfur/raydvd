@@ -12,7 +12,7 @@ const LOGO_DRAW_WIDTH: f32 = 240.0;
 const SPEED_X: f32 = 240.0;
 const SPEED_Y: f32 = 180.0;
 const CORNER_FLASH_FRAMES: u8 = 12;
-const DEFAULT_CORNER_MARGIN: f32 = 5.0;
+const DEFAULT_CORNER_MARGIN: i32 = 5;
 const MAX_STEP_PIXELS: f32 = 16.0;
 const BOUNCE_JITTER_DEGREES: f32 = 0.45;
 
@@ -35,7 +35,7 @@ struct Args {
         value_parser = parse_corner_margin,
         help = "Corner hit margin in pixels (>= 0)"
     )]
-    corner: f32,
+    corner: i32,
 
     #[arg(short = 't', long, help = "Draw center-point trace path")]
     trace: bool,
@@ -52,14 +52,14 @@ fn parse_speed_multiplier(input: &str) -> Result<f32, String> {
     }
 }
 
-fn parse_corner_margin(input: &str) -> Result<f32, String> {
-    let value: f32 = input
+fn parse_corner_margin(input: &str) -> Result<i32, String> {
+    let value: i32 = input
         .parse()
-        .map_err(|_| format!("'{input}' is not a valid float"))?;
-    if value >= 0.0 && value.is_finite() {
+        .map_err(|_| format!("'{input}' is not a valid integer"))?;
+    if value >= 0 {
         Ok(value)
     } else {
-        Err("corner margin must be a finite value >= 0".to_string())
+        Err("corner margin must be an integer >= 0".to_string())
     }
 }
 
@@ -322,10 +322,11 @@ fn main() {
                 bounced_y_any = true;
             }
 
-            let near_top = pos.y <= args.corner;
-            let near_bottom = pos.y + logo_height >= screen_height as f32 - args.corner;
-            let near_left = pos.x <= args.corner;
-            let near_right = pos.x + logo_width >= screen_width as f32 - args.corner;
+            let corner_margin = args.corner as f32;
+            let near_top = pos.y <= corner_margin;
+            let near_bottom = pos.y + logo_height >= screen_height as f32 - corner_margin;
+            let near_left = pos.x <= corner_margin;
+            let near_right = pos.x + logo_width >= screen_width as f32 - corner_margin;
 
             let near_corner = (near_left || near_right) && (near_top || near_bottom);
 
