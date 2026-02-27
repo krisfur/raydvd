@@ -17,6 +17,21 @@ It opens a transparent, borderless, click-through window, bounces a DVD logo aro
 
 ## Install
 
+Build requirements:
+
+- `cmake`
+- C toolchain (`cc`, `c++`)
+- OpenGL/X11 development libraries on Linux (for raylib via GLFW)
+
+Ubuntu/Debian example:
+
+```bash
+sudo apt-get update
+sudo apt-get install -y cmake build-essential \
+  libasound2-dev libgl1-mesa-dev libx11-dev libxcursor-dev \
+  libxext-dev libxinerama-dev libxi-dev libxrandr-dev
+```
+
 From crates.io (after publish):
 
 ```bash
@@ -57,6 +72,7 @@ raydvd -s 69 -c 5 -t
 
 ## Notes
 
+- Tray integration is only enabled on Linux; on other platforms the app runs without a tray icon.
 - On Wayland, tray visibility depends on your StatusNotifier host (for example, Waybar tray module).
 - Transparency/click-through behavior can vary slightly by compositor configuration.
 

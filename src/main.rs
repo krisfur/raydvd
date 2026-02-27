@@ -1,10 +1,12 @@
 use clap::Parser;
-use ksni::{blocking::TrayMethods, menu::StandardItem};
 use raylib::{core::window, ffi, prelude::*};
 use std::sync::{
     atomic::{AtomicBool, Ordering},
     Arc,
 };
+
+#[cfg(target_os = "linux")]
+use ksni::{blocking::TrayMethods, menu::StandardItem};
 
 const LOGO_DRAW_WIDTH: f32 = 240.0;
 const SPEED_X: f32 = 240.0;
@@ -147,10 +149,12 @@ fn apply_bounce_jitter(vel: &mut Vector2) {
     }
 }
 
+#[cfg(target_os = "linux")]
 struct TrayApp {
     running: Arc<AtomicBool>,
 }
 
+#[cfg(target_os = "linux")]
 impl ksni::Tray for TrayApp {
     const MENU_ON_ACTIVATE: bool = true;
 
@@ -189,12 +193,19 @@ fn main() {
     let args = Args::parse();
 
     let running = Arc::new(AtomicBool::new(true));
-    let tray = TrayApp {
-        running: Arc::clone(&running),
+    #[cfg(target_os = "linux")]
+    let _tray_handle = {
+        let tray = TrayApp {
+            running: Arc::clone(&running),
+        };
+        match tray.spawn() {
+            Ok(handle) => Some(handle),
+            Err(err) => {
+                eprintln!("warning: tray unavailable: {err:?}");
+                None
+            }
+        }
     };
-    let _tray_handle = tray
-        .spawn()
-        .expect("failed to start tray; ensure a StatusNotifierHost is running");
 
     let (mut rl, thread) = raylib::init()
         .size(1280, 720)
