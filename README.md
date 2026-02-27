@@ -2,6 +2,8 @@
 
 `raydvd` is a tiny desktop DVD logo overlay for Linux, written in Rust with raylib.
 
+![screenshot](./screenshot.png)
+
 It opens a transparent, borderless, click-through window, bounces a DVD logo around the screen, changes color on each bounce, and flashes on corner hits.
 
 ## Features
