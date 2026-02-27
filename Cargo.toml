@@ -1,0 +1,9 @@
+[package]
+name = "raydvd"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+raylib = "5.5.1"
+ksni = { version = "0.3", features = ["blocking"] }
+clap = { version = "4.5", features = ["derive"] }
