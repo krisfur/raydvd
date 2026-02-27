@@ -2,6 +2,14 @@
 name = "raydvd"
 version = "0.1.0"
 edition = "2024"
+rust-version = "1.85"
+description = "Transparent, click-through bouncing DVD logo overlay built with raylib"
+readme = "README.md"
+license = "MIT"
+repository = "https://github.com/krisfur/raydvd"
+homepage = "https://github.com/krisfur/raydvd"
+keywords = ["raylib", "dvd", "overlay", "wayland"]
+categories = ["graphics", "multimedia::images"]
 
 [dependencies]
 raylib = "5.5.1"
