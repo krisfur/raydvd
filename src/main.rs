@@ -1,8 +1,8 @@
 use clap::Parser;
 use raylib::{core::window, ffi, prelude::*};
 use std::sync::{
-    atomic::{AtomicBool, Ordering},
     Arc,
+    atomic::{AtomicBool, Ordering},
 };
 
 #[cfg(target_os = "linux")]
@@ -12,7 +12,7 @@ const LOGO_DRAW_WIDTH: f32 = 240.0;
 const SPEED_X: f32 = 240.0;
 const SPEED_Y: f32 = 180.0;
 const CORNER_FLASH_FRAMES: u8 = 12;
-const DEFAULT_CORNER_MARGIN: f32 = 20.0;
+const DEFAULT_CORNER_MARGIN: f32 = 5.0;
 const MAX_STEP_PIXELS: f32 = 16.0;
 const BOUNCE_JITTER_DEGREES: f32 = 0.45;
 
